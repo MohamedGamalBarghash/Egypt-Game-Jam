@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Egypt-Game-Jam.sln"
+    "dotnet.defaultSolution": "Egypt-Game-Jam.sln",
+    "cmake.configureOnOpen": false
 }
