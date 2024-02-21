@@ -258,6 +258,7 @@ GameObject:
   - component: {fileID: 1569820452}
   - component: {fileID: 1569820451}
   - component: {fileID: 1569820454}
+  - component: {fileID: 1569820455}
   m_Layer: 0
   m_Name: Square (1)
   m_TagString: Untagged
@@ -390,6 +391,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &1569820455
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569820450}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 7
 --- !u!1 &1601018998
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,7 +588,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!1 &1845284627
 GameObject:
@@ -591,11 +619,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5e76f0d4882b348990c3534a12b4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delay: 3
+  counter: 0
+  maxEnemies: 4
   enemyPrefabs:
   - {fileID: 6323719953710832613, guid: a4b4a6d32bcb19248a754d6602ffc7e4, type: 3}
   spawnPoints:
   - {fileID: 610091958}
-  counter: 0
 --- !u!4 &1845284629
 Transform:
   m_ObjectHideFlags: 0
@@ -690,7 +720,7 @@ Transform:
   m_GameObject: {fileID: 1848387274}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4315, y: 0.1853, z: 0}
+  m_LocalPosition: {x: -0.4315, y: 0.03, z: 0}
   m_LocalScale: {x: 21.9089, y: 10.162934, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
