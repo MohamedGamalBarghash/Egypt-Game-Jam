@@ -8,7 +8,7 @@ public class SystemScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && counter > 0 )
+        if (other.CompareTag("Player") && Money > 0 )
         {
 
             Money--;

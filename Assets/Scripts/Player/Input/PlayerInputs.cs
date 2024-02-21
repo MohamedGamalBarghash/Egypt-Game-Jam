@@ -7,11 +7,11 @@ public class PlayerInputs : MonoBehaviour
 {
     // Input Variables
     private Vector2[] move = new Vector2[2];
-    public bool[] slap = new bool[2];
-    public bool[] hook = new bool[2];
+    private bool[] slap = new bool[2];
+    private bool[] hook = new bool[2];
 
     // Players Handlers
-    public PlayerController[] players = new PlayerController[2];
+    private PlayerController[] players = new PlayerController[2];
 
     public void OnMove(InputValue context)
     {
@@ -48,9 +48,12 @@ public class PlayerInputs : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i] = transform.GetChild(i).GetComponent<PlayerController>();
+        }
     }
 
     // Update is called once per frame

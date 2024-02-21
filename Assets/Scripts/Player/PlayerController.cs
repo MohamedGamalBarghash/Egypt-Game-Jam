@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Space]
+    [Header("Movement")]
     #region Movement Variables
     private Rigidbody2D rb;
     public float speed = 2.0f;
@@ -13,18 +15,20 @@ public class PlayerController : MonoBehaviour
     private Vector2 lastMove = new Vector2(1, 0);
     #endregion
 
+    [Header("Slap")]
     #region slap Variables
-    public GameObject slapGO;
+    [SerializeField] private GameObject slapGO;
     #endregion
 
+    [Header("Hook")]
     #region Hook Variables
-    public float hookRange = 5f;
-    public LayerMask enemyLayer;
-    public float hookSpeed = 5f;
-    public LineRenderer hookLine;
+    [SerializeField] private float hookRange = 5f;
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private float hookSpeed = 5f;
+    [SerializeField] private LineRenderer hookLine;
 
-    public bool isHooked = false;
-    public Transform hookedEnemy;
+    private bool isHooked = false;
+    private Transform hookedEnemy;
     #endregion
 
     private void Start () {
