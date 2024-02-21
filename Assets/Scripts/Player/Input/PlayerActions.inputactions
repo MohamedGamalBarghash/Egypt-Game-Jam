@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Hit",
+                    "name": "Slap",
                     "type": "Button",
                     "id": "562d3f8e-91db-4ce0-a8cd-5115f7d2ab2e",
                     "expectedControlType": "Button",
@@ -33,9 +33,27 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "HitTwo",
+                    "name": "SlapTwo",
                     "type": "Button",
                     "id": "124786c4-3505-4477-b274-1e67f84345d0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Hook",
+                    "type": "Button",
+                    "id": "c2ce350a-e1e4-4752-8c2e-09f8670af76c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "HookTwo",
+                    "type": "Button",
+                    "id": "f21225b7-f224-4cb9-bf6f-2c13578b0c09",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press",
@@ -160,7 +178,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Hit",
+                    "action": "Slap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -171,7 +189,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "HitTwo",
+                    "action": "SlapTwo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8d547022-1080-41e6-8e39-f0f1d247f4bf",
+                    "path": "<Keyboard>/numpadPeriod",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Hook",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "43c709e6-09aa-4b65-9cb1-81b6ed921e02",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "HookTwo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
