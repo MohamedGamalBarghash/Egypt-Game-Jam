@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [Space]
     [Header("Movement")]
     #region Movement Variables
     private Rigidbody2D rb;
@@ -47,16 +46,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Slap (ref bool hit) {
-        if (hit) {
+    public void Slap (ref bool slap) {
+        if (slap) {
             // Hit
             slapGO.transform.rotation = Quaternion.LookRotation(Vector3.forward, lastMove);
             slapGO.transform.position = transform.position + new Vector3(lastMove.x, lastMove.y, 0);
             // Play the slap animation
-            //
+            // Trigger the slap effect
 
-            // perform hitting (slapping)
-            hit = false;
+            // Untrigger the button
+            slap = false;
         }
     }
 
@@ -103,12 +102,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // for editor debugging and drawing
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, hookRange);
     }
 
+    // update for physics calculations
     public void FixedUpdate () { 
         // Update
         if (isHooked && hookedEnemy != null)
@@ -123,6 +124,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // collision detection
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (isHooked && collision.transform == hookedEnemy)
