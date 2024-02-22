@@ -6,28 +6,15 @@ public class SystemScript : MonoBehaviour
 {
     public int Money = 2; // Counter variable
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.CompareTag("Player") && Money > 0 )
+        if (other.gameObject.CompareTag("Player") && Money > 0)
         {
-
             Money--;
         }
-        else if (other.CompareTag("Enemy"))
+        else if (other.gameObject.CompareTag("Enemy"))
         {
-            StartCoroutine(WaitAndIncreaseCounter());
+            Money++;
         }
     }
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        
-    }
-    private IEnumerator WaitAndIncreaseCounter()
-    {
-        yield return new WaitForSeconds(4f);
-        Money++;
-    }
-
-
-   
 }

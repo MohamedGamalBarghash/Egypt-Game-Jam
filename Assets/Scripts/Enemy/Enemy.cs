@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
     }
     private IEnumerator WaitAndIncreaseCounter()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(10f);
         GameObject.Destroy(gameObject);
     }
-    }
+}
