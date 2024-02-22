@@ -1,0 +1,4 @@
+repository "Egypt-Game-Jam@Mohamed_ElShab_AS_Publisher@cloud"
+  path "/"
+    br "/main"
+    co "/main"

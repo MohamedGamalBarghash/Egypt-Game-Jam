@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "EGJ.sln"
+    "dotnet.defaultSolution": "EGJ.sln",
+    "cmake.configureOnOpen": false
 }
