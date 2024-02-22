@@ -180,7 +180,7 @@ MonoBehaviour:
   hookRange: 5
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   hookSpeed: 2
   hookLine: {fileID: 8772402170832498795}
 --- !u!1 &7185472159728818988
