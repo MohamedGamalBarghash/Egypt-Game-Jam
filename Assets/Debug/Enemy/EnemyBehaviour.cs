@@ -14,13 +14,14 @@ public class EnemyBehaviour : MonoBehaviour
     private GameObject[] points;
     public UpdateMarkedPoints updateMarkedPoints;
     int index;
-    public int id;
+    private int id;
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         //index of target point is from 0 to 3
         index = Random.Range(0, points.Length);
+        id = gameObject.GetInstanceID();
         pickPoint();
     }
     // Update is called once per frame
@@ -46,13 +47,13 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else
         {
-            index = Random.Range(1, points.Length);
+            index = Random.Range(0, points.Length);
             pickPoint();
         }
         
         
-        Debug.Log("VelocityX: " + rb.velocity.x);
-        Debug.Log("VelocityY: " + rb.velocity.x);
+       // Debug.Log("VelocityX: " + rb.velocity.x);
+        //Debug.Log("VelocityY: " + rb.velocity.x);
     }
 
     private void pickPoint()

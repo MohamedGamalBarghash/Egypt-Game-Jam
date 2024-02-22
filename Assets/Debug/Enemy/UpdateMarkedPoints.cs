@@ -9,15 +9,15 @@ public class UpdateMarkedPoints : MonoBehaviour
     [SerializeField]
     private GameObject[] Points;
     // Start is called before the first frame update
-    // void Awake()
-    // {
-    //     markedPoints = new Dictionary<GameObject, int>();
-    //     foreach(GameObject p in Points)
-    //     {
-    //         markedPoints.Add(p, 0);
-    //     }
+    void Awake()
+    {
+        markedPoints = new Dictionary<GameObject, int>();
+        foreach(GameObject p in Points)
+        {
+            markedPoints.Add(p, 0);
+        }
         
-    // }
+    }
 
     // Update is called once per frame
     void Update()
