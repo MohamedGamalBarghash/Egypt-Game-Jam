@@ -59,48 +59,58 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Hook (ref bool hook) {
-        if (hook) {
-            // Hook
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, hookRange, enemyLayer);
-            // Debug.Log("Hooking " + hitEnemies.Length + " enemies.");
+    public void Hook(ref bool hook)
+{
+    if (hook)
+    {
+        // Hook
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, hookRange, enemyLayer);
+        // Debug.Log("Hooking " + hitEnemies.Length + " enemies.");
 
-            float shortestDistance = Mathf.Infinity;
-            Transform nearestEnemy = null;
+        float shortestDistance = Mathf.Infinity;
+        Transform nearestEnemy = null;
 
-            foreach (Collider2D enemy in hitEnemies)
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            // Check if the enemy is colliding with the player
+            if (enemy.GetComponent<Collider2D>().IsTouching(GetComponent<Collider2D>()))
             {
-                float distanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
-                if (distanceToEnemy < shortestDistance)
-                {
-                    shortestDistance = distanceToEnemy;
-                    nearestEnemy = enemy.transform;
-                    // Debug.Log("Hooking " + nearestEnemy.name + " at distance " + shortestDistance + " from the player.");
-                }
+                continue; // Skip this enemy if it's colliding with the player
             }
 
-            if (isHooked)
+            float distanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
+            if (distanceToEnemy < shortestDistance)
             {
-                // Unhook the player
-                isHooked = false;
-                hookedEnemy = null;
-                canMove = true;
-                hookLine.enabled = false;
+                shortestDistance = distanceToEnemy;
+                nearestEnemy = enemy.transform;
+                // Debug.Log("Hooking " + nearestEnemy.name + " at distance " + shortestDistance + " from the player.");
             }
-            else {
-                if (nearestEnemy != null)
-                {
-                    isHooked = true;
-                    hookedEnemy = nearestEnemy;
-
-                    canMove = false;
-                }
-            }
-
-            // perform hook on target
-            hook = false;
         }
+
+        if (isHooked)
+        {
+            // Unhook the player
+            isHooked = false;
+            hookedEnemy = null;
+            canMove = true;
+            hookLine.enabled = false;
+        }
+        else
+        {
+            if (nearestEnemy != null)
+            {
+                isHooked = true;
+                hookedEnemy = nearestEnemy;
+
+                canMove = false;
+            }
+        }
+
+        // perform hook on target
+        hook = false;
     }
+}
+
 
     // for editor debugging and drawing
     private void OnDrawGizmosSelected()
