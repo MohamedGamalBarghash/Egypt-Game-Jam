@@ -7,12 +7,11 @@ public class Village : MonoBehaviour
 {
     private AudioSource audioSource;
     public AudioClip kidnapSound;
+    public AudioClip coinSound;
     public TMP_Text populationText;
     [Header("Write the initial value for Population and Resources")]
-    public int initialPeople = 10;
-    public int initialResources = 100;
-    [HideInInspector] public int peopleIndicator;
-    [HideInInspector] public int resourcesBank;
+    public int peopleIndicator;
+    public int resourcesBank;
 
     private bool gameLost = false;
 
@@ -35,20 +34,13 @@ public class Village : MonoBehaviour
         // resourcesBank = initialResources;
 
         audioSource = GetComponent<AudioSource>();
+        resourcesBank = 8;
 
         // RespawnPeopleRandomly();
     }
 
     void Update () {
         populationText.text = "Money: " + resourcesBank;
-    }
-
-    void RespawnPeopleRandomly()
-    {
-        for (int i = 0; i < initialPeople; i++)
-        {
-            RespawnPerson();
-        }
     }
 
     public void KidnapPerson()
@@ -86,6 +78,7 @@ public class Village : MonoBehaviour
                 gameLost = true;
             }
         }
+        audioSource.PlayOneShot(coinSound);
         audioSource.PlayOneShot(kidnapSound);
     }
 

@@ -93,7 +93,7 @@ public class EnemyBehaviour : MonoBehaviour
             target = home;
             // stolen
             stolen = true;
-            speed = 15;
+            speed = 8;
             stolenFrom = collision.gameObject.GetComponent<Village>();
             stolenFrom.StealResources(1);
         }
@@ -101,7 +101,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             pickPoint();
             stolen = false;
-            speed = 10;
+            speed = 11;
             collision.gameObject.GetComponent<BankManager>().DepositResources(1);
             stolenFrom = null;
             // deposit
