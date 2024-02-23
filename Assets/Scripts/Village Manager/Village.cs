@@ -66,9 +66,19 @@ public class Village : MonoBehaviour
         {
             resourcesBank = 0;
             // Handle losing condition here (e.g., show game over screen)
-            Debug.Log("Game Over - Resources depleted!");
-            gameLost = true;
+            if (resourcesBank == 0 && !gameLost)
+            {
+                Debug.Log("Game Over - Resources depleted!");
+                // End Game
+                Application.Quit();
+                gameLost = true;
+            }
         }
+    }
+
+    public void ReturnResources(int amount)
+    {
+        resourcesBank += amount;
     }
 
     void RespawnPerson()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SystemScript : MonoBehaviour
 {
-    public int Money = 2; // Counter variable
+    public int Money = 0; // Counter variable
 
     private void OnCollisionEnter2D(Collision2D other)
     {

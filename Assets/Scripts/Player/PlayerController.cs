@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     [Header("Slap")]
     #region slap Variables
     [SerializeField] private GameObject slapGO;
+    [SerializeField] private float slapTimer = 0.2f;
+    [SerializeField] private bool canSlap = true;
+    [SerializeField] private float slapForce = 100.0f;
     #endregion
 
     [Header("Hook")]
@@ -30,12 +33,15 @@ public class PlayerController : MonoBehaviour
     private Transform hookedEnemy;
     #endregion
 
-    private void Start () {
+    private void Start()
+    {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Move (Vector2 move) {
-        if (canMove) {
+    public void Move(Vector2 move)
+    {
+        if (canMove)
+        {
             // Move the player
             // rb.MovePosition(transform.position + move.ConvertTo<Vector3>() * speed);
             rb.AddForce(move * speed, ForceMode2D.Impulse);
@@ -46,70 +52,80 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Slap (ref bool slap) {
-        if (slap) {
+    public void Slap(ref bool slap)
+    {
+        if (slap && canSlap)
+        {
             // Hit
             slapGO.transform.rotation = Quaternion.LookRotation(Vector3.forward, lastMove);
             slapGO.transform.position = transform.position + new Vector3(lastMove.x, lastMove.y, 0);
+            Physics2D.OverlapCircleAll(slapGO.transform.position, 0.5f, enemyLayer).ToList().ForEach(x => x.GetComponent<EnemyBehaviour>().GetSlapped(slapForce, (transform.position - x.transform.position).normalized));
+            StartCoroutine(SlapEffect());
             // Play the slap animation
             // Trigger the slap effect
 
             // Untrigger the button
-            slap = false;
         }
+        slap = false;
+    }
+
+    private IEnumerator SlapEffect () {
+        yield return new WaitForSeconds(slapTimer);
+        slapGO.transform.localPosition = Vector2.zero;
+        canSlap = true;
     }
 
     public void Hook(ref bool hook)
-{
-    if (hook)
     {
-        // Hook
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, hookRange, enemyLayer);
-        // Debug.Log("Hooking " + hitEnemies.Length + " enemies.");
-
-        float shortestDistance = Mathf.Infinity;
-        Transform nearestEnemy = null;
-
-        foreach (Collider2D enemy in hitEnemies)
+        if (hook)
         {
-            // Check if the enemy is colliding with the player
-            if (enemy.GetComponent<Collider2D>().IsTouching(GetComponent<Collider2D>()))
+            // Hook
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, hookRange, enemyLayer);
+            // Debug.Log("Hooking " + hitEnemies.Length + " enemies.");
+
+            float shortestDistance = Mathf.Infinity;
+            Transform nearestEnemy = null;
+
+            foreach (Collider2D enemy in hitEnemies)
             {
-                continue; // Skip this enemy if it's colliding with the player
+                // Check if the enemy is colliding with the player
+                if (enemy.GetComponent<Collider2D>().IsTouching(GetComponent<Collider2D>()))
+                {
+                    continue; // Skip this enemy if it's colliding with the player
+                }
+
+                float distanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
+                if (distanceToEnemy < shortestDistance)
+                {
+                    shortestDistance = distanceToEnemy;
+                    nearestEnemy = enemy.transform;
+                    // Debug.Log("Hooking " + nearestEnemy.name + " at distance " + shortestDistance + " from the player.");
+                }
             }
 
-            float distanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
-            if (distanceToEnemy < shortestDistance)
+            if (isHooked)
             {
-                shortestDistance = distanceToEnemy;
-                nearestEnemy = enemy.transform;
-                // Debug.Log("Hooking " + nearestEnemy.name + " at distance " + shortestDistance + " from the player.");
+                // Unhook the player
+                isHooked = false;
+                hookedEnemy = null;
+                canMove = true;
+                hookLine.enabled = false;
             }
-        }
-
-        if (isHooked)
-        {
-            // Unhook the player
-            isHooked = false;
-            hookedEnemy = null;
-            canMove = true;
-            hookLine.enabled = false;
-        }
-        else
-        {
-            if (nearestEnemy != null)
+            else
             {
-                isHooked = true;
-                hookedEnemy = nearestEnemy;
+                if (nearestEnemy != null)
+                {
+                    isHooked = true;
+                    hookedEnemy = nearestEnemy;
 
-                canMove = false;
+                    canMove = false;
+                }
             }
-        }
 
-        // perform hook on target
-        hook = false;
+            // perform hook on target
+            hook = false;
+        }
     }
-}
 
 
     // for editor debugging and drawing
@@ -120,7 +136,8 @@ public class PlayerController : MonoBehaviour
     }
 
     // update for physics calculations
-    public void FixedUpdate () { 
+    public void FixedUpdate()
+    {
         // Update
         if (isHooked && hookedEnemy != null)
         {

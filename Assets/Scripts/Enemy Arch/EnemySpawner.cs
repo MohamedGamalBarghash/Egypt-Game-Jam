@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private int maxEnemies = 4;
     public GameObject[] enemyPrefabs;
     public Transform[] spawnPoints;
+    public Transform[] homePoints;
+    public Transform[] points;
+    public UpdateMarkedPoints updateMarkedPoints;
     private bool spawned = true;
 
     private void Update()
@@ -26,7 +30,10 @@ public class EnemySpawner : MonoBehaviour
     private IEnumerator SpawnEnemies()
     {
         yield return new WaitForSeconds(delay);
-        Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], spawnPoints[Random.Range(0, spawnPoints.Length)].position, Quaternion.identity);
+        GameObject enemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], spawnPoints[Random.Range(0, spawnPoints.Length)].position, Quaternion.identity);
+        enemy.GetComponent<EnemyBehaviour>().points = points;
+        enemy.GetComponent<EnemyBehaviour>().updateMarkedPoints = updateMarkedPoints;
+        enemy.GetComponent<EnemyBehaviour>().home = homePoints[Random.Range(0,2)];
         counter++;
         spawned = true;
     }
