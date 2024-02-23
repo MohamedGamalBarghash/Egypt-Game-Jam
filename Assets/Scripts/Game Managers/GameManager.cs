@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Congratulations! You won the level!");
         levelCompleted = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         RaiseGameWon(); 
     }
     // 3ashan nngz

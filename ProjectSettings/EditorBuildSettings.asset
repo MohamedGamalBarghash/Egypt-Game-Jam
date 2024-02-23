@@ -6,7 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Debug/Scenes/AhmedWageh.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/MainMenuScene.unity
+    guid: b1a3ec298f36c5e468ebd25cf76964fc
+  - enabled: 1
+    path: Assets/Scenes/Our_Scene.unity
+    guid: 3691df5728423754a8cc3fbcc2591a41
+  - enabled: 1
+    path: Assets/Scenes/Game Over.unity
+    guid: d50137fbbceabfd44a5902d406cc81f0
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: f555327cef05b0a4da11b20726067e33, type: 2}

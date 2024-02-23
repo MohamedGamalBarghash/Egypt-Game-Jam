@@ -52,8 +52,8 @@ public class EnemyBehaviour : MonoBehaviour
                 }
                 else
                 {
-                    // transform.position = Vector2.MoveTowards(transform.position, target.transform.position, step);
-                    rb.MovePosition(target.transform.position.normalized * step);
+                    transform.position = Vector2.MoveTowards(transform.position, target.transform.position, step);
+                    // rb.MovePosition(target.transform.position.normalized * step);
                 }
             }
             else
@@ -76,7 +76,7 @@ public class EnemyBehaviour : MonoBehaviour
             target = home;
             // stolen
             stolen = true;
-            speed = 5;
+            speed = 8;
             stolenFrom = collision.gameObject.GetComponent<Village>();
             stolenFrom.StealResources(1);
         }
@@ -84,7 +84,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             pickPoint();
             stolen = false;
-            speed = 3;
+            speed = 5;
             collision.gameObject.GetComponent<BankManager>().DepositResources(1);
             stolenFrom = null;
             // deposit
@@ -109,14 +109,16 @@ public class EnemyBehaviour : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         canMove = false;
-        rb.AddForce(hitDirection * hitForce, ForceMode2D.Impulse);
+        rb.AddForce(hitDirection * -hitForce, ForceMode2D.Impulse);
         StopAllCoroutines();
-        stolenFrom.ReturnResources(1);
+        if (stolenFrom != null)
+            stolenFrom.ReturnResources(1);
         StartCoroutine(ReMove());
     }
 
     private IEnumerator ReMove () {
         yield return new WaitForSeconds(hitDelay);
+        target = home;
         canMove = true;
     }
 }

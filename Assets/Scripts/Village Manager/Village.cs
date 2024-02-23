@@ -29,7 +29,7 @@ public class Village : MonoBehaviour
         peopleIndicator = initialPeople;
         resourcesBank = initialResources;
 
-        RespawnPeopleRandomly();
+        // RespawnPeopleRandomly();
     }
     void RespawnPeopleRandomly()
     {
