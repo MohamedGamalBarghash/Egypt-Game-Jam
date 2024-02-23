@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private AudioSource audioSource;
+    private Animator anim;
+
     [Header("Movement")]
     #region Movement Variables
     private Rigidbody2D rb;
@@ -20,6 +23,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float slapTimer = 0.2f;
     [SerializeField] private bool canSlap = true;
     [SerializeField] private float slapForce = 100.0f;
+    [SerializeField] private AudioClip slapClip;
+    [SerializeField] private AudioClip wooshClip;
     #endregion
 
     [Header("Hook")]
@@ -36,6 +41,8 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
+        anim = GetComponent<Animator>();
     }
 
     public void Move(Vector2 move)
@@ -46,6 +53,11 @@ public class PlayerController : MonoBehaviour
             // rb.MovePosition(transform.position + move.ConvertTo<Vector3>() * speed);
             rb.AddForce(move * speed, ForceMode2D.Impulse);
             rb.velocity = Vector2.ClampMagnitude(rb.velocity, speed);
+            if (move.magnitude == 0) {
+                anim.SetBool("Move", false);
+            } else {
+                anim.SetBool("Move", true);
+            }
 
             // Update direction for hitting and hooking
             lastMove = (move.x == 0 && move.y == 0) ? lastMove : new Vector2(move.x, move.y);
@@ -59,7 +71,11 @@ public class PlayerController : MonoBehaviour
             // Hit
             slapGO.transform.rotation = Quaternion.LookRotation(Vector3.forward, lastMove);
             slapGO.transform.position = transform.position + new Vector3(lastMove.x, lastMove.y, 0);
-            Physics2D.OverlapCircleAll(slapGO.transform.position, 0.5f, enemyLayer).ToList().ForEach(x => x.GetComponent<EnemyBehaviour>().GetSlapped(slapForce, (transform.position - x.transform.position).normalized));
+            List<Collider2D> enemies = Physics2D.OverlapCircleAll(slapGO.transform.position, 0.5f, enemyLayer).ToList();
+            if (enemies != null && enemies.Count > 0)
+                enemies.ForEach(x => {x.GetComponent<EnemyBehaviour>().GetSlapped(slapForce, (transform.position - x.transform.position).normalized); audioSource.PlayOneShot(slapClip);});
+            else
+                audioSource.PlayOneShot(wooshClip);
             StartCoroutine(SlapEffect());
             // Play the slap animation
             // Trigger the slap effect
@@ -149,6 +165,11 @@ public class PlayerController : MonoBehaviour
             hookLine.SetPosition(0, transform.position);
             hookLine.SetPosition(1, hookedEnemy.position);
         }
+    }
+
+    private void Update () {
+        anim.SetFloat("VelocityX", lastMove.x);
+        anim.SetFloat("VelocityY", lastMove.y);
     }
 
     // collision detection

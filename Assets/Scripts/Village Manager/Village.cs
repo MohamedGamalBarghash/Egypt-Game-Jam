@@ -1,8 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Village : MonoBehaviour
 {
+    private AudioSource audioSource;
+    public AudioClip kidnapSound;
+    public TMP_Text populationText;
     [Header("Write the initial value for Population and Resources")]
     public int initialPeople = 10;
     public int initialResources = 100;
@@ -26,11 +31,18 @@ public class Village : MonoBehaviour
 
     void Start()
     {
-        peopleIndicator = initialPeople;
-        resourcesBank = initialResources;
+        // peopleIndicator = initialPeople;
+        // resourcesBank = initialResources;
+
+        audioSource = GetComponent<AudioSource>();
 
         // RespawnPeopleRandomly();
     }
+
+    void Update () {
+        populationText.text = "Money: " + resourcesBank;
+    }
+
     void RespawnPeopleRandomly()
     {
         for (int i = 0; i < initialPeople; i++)
@@ -70,10 +82,11 @@ public class Village : MonoBehaviour
             {
                 Debug.Log("Game Over - Resources depleted!");
                 // End Game
-                Application.Quit();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+2);
                 gameLost = true;
             }
         }
+        audioSource.PlayOneShot(kidnapSound);
     }
 
     public void ReturnResources(int amount)

@@ -12,7 +12,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Our_Scene.unity
     guid: 3691df5728423754a8cc3fbcc2591a41
   - enabled: 1
-    path: Assets/Scenes/Game Over.unity
+    path: Assets/Scenes/Win.unity
     guid: d50137fbbceabfd44a5902d406cc81f0
+  - enabled: 1
+    path: Assets/Scenes/Lose.unity
+    guid: 04d2e6158f953f3448815b2e2d45595c
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: f555327cef05b0a4da11b20726067e33, type: 2}

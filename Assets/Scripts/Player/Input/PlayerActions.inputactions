@@ -174,7 +174,7 @@
                 {
                     "name": "",
                     "id": "8f007207-0636-4d17-8d50-2614ce8830a5",
-                    "path": "<Keyboard>/numpad0",
+                    "path": "<Keyboard>/numpad4",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -185,7 +185,7 @@
                 {
                     "name": "",
                     "id": "21a9ec9f-89f6-4e0b-a4d8-924c4f6f577e",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -196,7 +196,7 @@
                 {
                     "name": "",
                     "id": "8d547022-1080-41e6-8e39-f0f1d247f4bf",
-                    "path": "<Keyboard>/numpadPeriod",
+                    "path": "<Keyboard>/numpad5",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -207,7 +207,7 @@
                 {
                     "name": "",
                     "id": "43c709e6-09aa-4b65-9cb1-81b6ed921e02",
-                    "path": "<Keyboard>/leftCtrl",
+                    "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",

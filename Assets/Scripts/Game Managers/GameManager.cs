@@ -1,10 +1,17 @@
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance; 
+
+    public TMP_Text timerText;
+
+    [SerializeField] private GameObject[] scenes = new GameObject[5];
+    [SerializeField] private GameObject pressToContinue;
+    int currentSceneIndex = 0;
 
     public float timeLimitInSeconds = 1f; 
     private float elapsedTime = 0f;
@@ -44,20 +51,53 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        GameLost += LevelLost;
+        Time.timeScale = 0;
+        elapsedTime = timeLimitInSeconds;
+        currentSceneIndex = 0;
+        foreach (GameObject scene in scenes)
+        {
+            scene.SetActive(false);
+        }
+        scenes[currentSceneIndex].SetActive(true);
+        pressToContinue.SetActive(true);
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            currentSceneIndex ++;
+            if (currentSceneIndex >= 5) {
+                foreach (GameObject scene in scenes)
+                {
+                    scene.SetActive(false);
+                }
+                pressToContinue.SetActive(false);
+                Time.timeScale = 1;
+            }
+            else {
+                foreach (GameObject scene in scenes)
+                {
+                    scene.SetActive(false);
+                }
+                scenes[currentSceneIndex].SetActive(true);
+            }
+            // RaiseGameStarted();
+        }
 
         if (!levelCompleted)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime -= Time.deltaTime;
 
-            if (elapsedTime >= timeLimitInSeconds)
+            if (elapsedTime <= 0)
             {
                 LevelCompleted();
             }
         }
+
+        timerText.text = "Time: " + Mathf.Floor(elapsedTime).ToString();
     }
 
     private void LevelCompleted()
@@ -67,6 +107,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         RaiseGameWon(); 
     }
+
+    private void LevelLost () {
+        Debug.Log("You lost the level!");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
     // 3ashan nngz
     // Methods to raise PlayerController events
     public void RaisePlayerControllerSpawned(PlayerController PlayerController) => PlayerControllerSpawned?.Invoke(PlayerController);
