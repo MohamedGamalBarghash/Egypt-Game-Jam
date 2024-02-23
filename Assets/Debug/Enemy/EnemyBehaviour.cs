@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
@@ -7,12 +8,16 @@ public class EnemyBehaviour : MonoBehaviour
     // Adjust the speed for the application.
     public float speed = 1.0f;
 
+    public bool stolen = false;
+
       
     private Rigidbody2D rb;    
-    private GameObject target = null;
+    private Transform target = null;
     [SerializeField]
-    private GameObject[] points;
+    public Transform[] points;
     public UpdateMarkedPoints updateMarkedPoints;
+
+    public Transform home;
     int index;
     private int id;
     // Start is called before the first frame update
@@ -31,7 +36,11 @@ public class EnemyBehaviour : MonoBehaviour
         // Move our position a step closer to the target.
         var step = speed * Time.deltaTime; // calculate distance to move
 
-        
+        if (transform.position == target.position)
+        {
+            index = Random.Range(0, points.Length);
+            pickPoint();
+        }
         if(target != null)
         {
             // Check if the position of the enemy and point are approximately equal.
@@ -54,6 +63,22 @@ public class EnemyBehaviour : MonoBehaviour
         
        // Debug.Log("VelocityX: " + rb.velocity.x);
         //Debug.Log("VelocityY: " + rb.velocity.x);
+    }
+
+    private void OnCollisionEnter2D (Collision2D collision)
+    {
+        if (collision.gameObject.tag == "TargetPoint")
+        {
+            target = home;
+            // stolen
+            stolen = true;
+            collision.gameObject.GetComponent<Village>().StealResources(1);
+        } else if (collision.gameObject.tag == "Home") {
+            pickPoint();
+            stolen = false;
+            // collision.gameObject.GetComponent<Bank>(1);
+            // deposit
+        }
     }
 
     private void pickPoint()

@@ -5,14 +5,14 @@ using UnityEngine;
 public class UpdateMarkedPoints : MonoBehaviour
 {
 
-    public Dictionary<GameObject, int> markedPoints;
+    public Dictionary<Transform, int> markedPoints;
     [SerializeField]
-    private GameObject[] Points;
+    private Transform[] Points;
     // Start is called before the first frame update
     void Awake()
     {
-        markedPoints = new Dictionary<GameObject, int>();
-        foreach(GameObject p in Points)
+        markedPoints = new Dictionary<Transform, int>();
+        foreach(Transform p in Points)
         {
             markedPoints.Add(p, 0);
         }
