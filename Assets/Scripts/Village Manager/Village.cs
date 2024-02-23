@@ -76,6 +76,11 @@ public class Village : MonoBehaviour
         }
     }
 
+    public void ReturnResources(int amount)
+    {
+        resourcesBank += amount;
+    }
+
     void RespawnPerson()
     {
         float randomX, randomY;
