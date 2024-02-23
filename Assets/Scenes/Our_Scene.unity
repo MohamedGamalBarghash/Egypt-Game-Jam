@@ -3698,7 +3698,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 4f548e5abaa5f0b45acc177f03441656, type: 3}
     - target: {fileID: 509645926046107698, guid: d32836c46e300024e974d81530b54d53, type: 3}
       propertyPath: hookRange
-      value: 15
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 509645926046107698, guid: d32836c46e300024e974d81530b54d53, type: 3}
       propertyPath: hookSpeed
@@ -8316,6 +8316,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6709382040898294147, guid: 7c30c82fe021e654685b935f2cfe0a2c, type: 3}
+      propertyPath: speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6709382040898294147, guid: 7c30c82fe021e654685b935f2cfe0a2c, type: 3}
       propertyPath: updateMarkedPoints
       value: 
       objectReference: {fileID: 29976246}
@@ -8323,18 +8327,6 @@ PrefabInstance:
       propertyPath: points.Array.data[0]
       value: 
       objectReference: {fileID: 351632957}
-    - target: {fileID: 6709382040898294147, guid: 7c30c82fe021e654685b935f2cfe0a2c, type: 3}
-      propertyPath: points.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6709382040898294147, guid: 7c30c82fe021e654685b935f2cfe0a2c, type: 3}
-      propertyPath: points.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6709382040898294147, guid: 7c30c82fe021e654685b935f2cfe0a2c, type: 3}
-      propertyPath: points.Array.data[3]
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -6,15 +6,17 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     // Adjust the speed for the application.
-    public float speed = 3.0f;
+    public float speed ;
 
     public bool stolen = false;
 
     private bool canMove = true;
     public float hitDelay = 0.3f;
-
+    
+    //animator
+    private Animator animator;
     public Village stolenFrom;
-
+    
     private Rigidbody2D rb;
     private Transform target = null;
     [SerializeField]
@@ -24,10 +26,16 @@ public class EnemyBehaviour : MonoBehaviour
     public Transform home;
     int index;
     private int id;
+    float x,y;
+
     // Start is called before the first frame update
     void Start()
     {
+        
+        x=0;
+        y=0;
         rb = gameObject.GetComponent<Rigidbody2D>();
+        animator= gameObject.GetComponent<Animator>();
         //index of target point is from 0 to 3
         index = Random.Range(0, points.Length);
         id = gameObject.GetInstanceID();
@@ -49,12 +57,21 @@ public class EnemyBehaviour : MonoBehaviour
                 {
                     // Stop the movement of the enemy.
                     rb.velocity = new Vector2(0, 0);
+                    x=0;
+                    y=0;
                 }
                 else
                 {
+                    var  oldPosition = transform.position;
                     transform.position = Vector2.MoveTowards(transform.position, target.transform.position, step);
+                    var newPosition =transform.position-oldPosition;
+                    x=newPosition.x;
+                    y=newPosition.y;
+
                     // rb.MovePosition(target.transform.position.normalized * step);
                 }
+                animator.SetFloat("VelocityX",x);
+                animator.SetFloat("VelocityY",y);
             }
             else
             {
@@ -76,7 +93,7 @@ public class EnemyBehaviour : MonoBehaviour
             target = home;
             // stolen
             stolen = true;
-            speed = 8;
+            speed = 15;
             stolenFrom = collision.gameObject.GetComponent<Village>();
             stolenFrom.StealResources(1);
         }
@@ -84,7 +101,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             pickPoint();
             stolen = false;
-            speed = 5;
+            speed = 10;
             collision.gameObject.GetComponent<BankManager>().DepositResources(1);
             stolenFrom = null;
             // deposit
